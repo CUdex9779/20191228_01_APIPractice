@@ -1,10 +1,12 @@
 package com.example.a20191228_01_apipractice
 
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.example.a20191228_01_apipractice.utils.ContextUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -33,6 +35,13 @@ class MainActivity : BaseActivity() {
             alert.setMessage("정말 로그아웃을 하시겠습니까?")
             alert.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
                 Toast.makeText(mContext,"로그아웃",Toast.LENGTH_SHORT).show()
+
+                ContextUtil.setUserToken(mContext,"")
+
+                val intent = Intent(mContext,LoginActivity::class.java)
+                startActivity(intent)
+
+                finish()
             })
             alert.setNegativeButton("Cancel",null)
             alert.show()
