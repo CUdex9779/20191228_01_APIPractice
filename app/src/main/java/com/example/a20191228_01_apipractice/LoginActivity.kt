@@ -1,8 +1,11 @@
 package com.example.a20191228_01_apipractice
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import com.example.a20191228_01_apipractice.utils.ConnentServer
 import kotlinx.android.synthetic.main.activity_login.*
+import org.json.JSONObject
 
 class LoginActivity : BaseActivity() {
 
@@ -37,7 +40,30 @@ class LoginActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
-            Toast.makeText(mContext,"정상 입력이라 로그인을 시도합니다.",Toast.LENGTH_SHORT).show()
+//            Toast.makeText(mContext,"정상 입력이라 로그인을 시도합니다.",Toast.LENGTH_SHORT).show()
+
+            ConnentServer.postRequestLogin(mContext,inputId,inpuPw,object : ConnentServer.JsonResponseHandler{
+                override fun onResponse(json: JSONObject) {
+                    Log.d("서버응답json",json.toString())
+//                   서버에서 돌려주는 코드가 몇 인지 int를 확인
+                    val code = json.getInt("code")
+//                    code가 200이면 로그인 성공 아니면 실패라는 토스트.
+
+                    runOnUiThread {
+
+                        if (code == 200){
+                            Toast.makeText(mContext,"로그인 성공",Toast.LENGTH_SHORT).show()
+                        }
+                        else{
+                            Toast.makeText(mContext,"로그인 실패",Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+
+
+                }
+
+            })
 
         }
 
