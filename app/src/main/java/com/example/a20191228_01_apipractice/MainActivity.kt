@@ -11,7 +11,7 @@ import java.net.ConnectException
 
 class MainActivity : BaseActivity() {
 
-    var userList = Array<User>()
+    var userList = ArrayList<User>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +47,8 @@ class MainActivity : BaseActivity() {
                             val userJson = users.getJSONObject(i)
 
                             val userDataObject = User.getUserFromJson(userJson)
+
+                            userList.add(userDataObject)
 
 
 
