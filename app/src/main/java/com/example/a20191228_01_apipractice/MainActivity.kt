@@ -4,14 +4,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telecom.ConnectionService
 import android.widget.Toast
+import com.example.a20191228_01_apipractice.adapters.UserAdapter
 import com.example.a20191228_01_apipractice.datas.User
 import com.example.a20191228_01_apipractice.utils.ConnentServer
+import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import java.net.ConnectException
 
 class MainActivity : BaseActivity() {
 
-    var userList = ArrayList<User>()
+    val userList = ArrayList<User>()
+    var mUserAdapter : UserAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +29,9 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+        mUserAdapter = UserAdapter(mContext,R.layout.user_list_item,userList)
+        userListView.adapter = mUserAdapter
 
     }
 
@@ -49,6 +55,8 @@ class MainActivity : BaseActivity() {
                             val userDataObject = User.getUserFromJson(userJson)
 
                             userList.add(userDataObject)
+
+                            mUserAdapter?.notifyDataSetChanged()
 
 
 
