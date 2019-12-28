@@ -1,5 +1,6 @@
 package com.example.a20191228_01_apipractice
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -60,6 +61,11 @@ class LoginActivity : BaseActivity() {
 
 //                            받아온 토큰을 내 폰에 반영구적으로 저장.
                             ContextUtil.setUserToken(mContext,token)
+
+                            val intent = Intent(mContext,MainActivity::class.java)
+                            startActivity(intent)
+
+                            finish()
 
                         }
                         else{
